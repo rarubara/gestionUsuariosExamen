@@ -1,4 +1,4 @@
-package com.example.tutoria.service;
+package com.codigo.gestionUsuariosExamen.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

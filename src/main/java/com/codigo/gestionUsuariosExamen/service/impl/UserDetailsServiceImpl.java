@@ -1,7 +1,7 @@
-package com.example.tutoria.service.impl;
+package com.codigo.gestionUsuariosExamen.service.impl;
 
-import com.example.tutoria.entity.Usuario;
-import com.example.tutoria.repository.UsuarioRepository;
+import com.codigo.gestionUsuariosExamen.entity.Usuario;
+import com.codigo.gestionUsuariosExamen.dao.UsuarioRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;

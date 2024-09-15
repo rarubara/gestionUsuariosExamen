@@ -1,4 +1,4 @@
-package com.example.tutoria.response;
+package com.codigo.gestionUsuariosExamen.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

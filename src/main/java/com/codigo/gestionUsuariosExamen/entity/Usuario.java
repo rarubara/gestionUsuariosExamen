@@ -1,9 +1,6 @@
 package com.codigo.gestionUsuariosExamen.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +22,7 @@ public class Usuario {
     private String password; // Este campo será utilizado para la autenticación con Spring Security
 
     // Define roles como "USER", "ADMIN", etc. para aplicar seguridad con Spring Security
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 }

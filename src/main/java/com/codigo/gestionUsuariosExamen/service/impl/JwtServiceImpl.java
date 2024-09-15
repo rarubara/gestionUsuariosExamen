@@ -1,6 +1,6 @@
-package com.example.tutoria.service.impl;
+package com.codigo.gestionUsuariosExamen.service.impl;
 
-import com.example.tutoria.service.JwtService;
+import com.codigo.gestionUsuariosExamen.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

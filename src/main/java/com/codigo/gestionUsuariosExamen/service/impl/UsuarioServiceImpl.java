@@ -1,14 +1,14 @@
-package com.example.tutoria.service.impl;
+package com.codigo.gestionUsuariosExamen.service.impl;
 
-import com.example.tutoria.entity.Role;
-import com.example.tutoria.entity.Usuario;
-import com.example.tutoria.repository.RoleRepository;
-import com.example.tutoria.repository.UsuarioRepository;
-import com.example.tutoria.request.LoginRequest;
-import com.example.tutoria.request.UsuarioRequest;
-import com.example.tutoria.response.UsuarioResponse;
-import com.example.tutoria.service.JwtService;
-import com.example.tutoria.service.UsuarioService;
+import com.codigo.gestionUsuariosExamen.entity.Role;
+import com.codigo.gestionUsuariosExamen.entity.Usuario;
+import com.codigo.gestionUsuariosExamen.dao.RoleRepository;
+import com.codigo.gestionUsuariosExamen.dao.UsuarioRepository;
+import com.codigo.gestionUsuariosExamen.request.LoginRequest;
+import com.codigo.gestionUsuariosExamen.request.UsuarioRequest;
+import com.codigo.gestionUsuariosExamen.response.UsuarioResponse;
+import com.codigo.gestionUsuariosExamen.service.JwtService;
+import com.codigo.gestionUsuariosExamen.service.UsuarioService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

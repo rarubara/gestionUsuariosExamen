@@ -1,4 +1,4 @@
-package com.example.tutoria.request;
+package com.codigo.gestionUsuariosExamen.request;
 
 import lombok.Getter;
 import lombok.Setter;
