@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "7fc9d93c-4ed2-4f62-943d-fbaf10bbbad3",
+		"name": "Examen2_gestionUsuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37415796"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "password",
+						"value": "mypassword",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombres\": \"SAMANTA ANTONELA FRANCHESCA\",\r\n    \"apellidoPaterno\": \"VELASQUEZ\",\r\n    \"apellidoMaterno\": \"LLOCLLA\",\r\n    \"tipoDocumento\": \"1\",\r\n    \"numeroDocumento\": \"78445126\",\r\n    \"digitoVerificador\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hola",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "password",
+						"value": "mypassword",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombres\": \"SAMANTA ANTONELA FRANCHESCA\",\r\n    \"apellidoPaterno\": \"VELASQUEZ\",\r\n    \"apellidoMaterno\": \"LLOCLLA\",\r\n    \"tipoDocumento\": \"1\",\r\n    \"numeroDocumento\": \"78445126\",\r\n    \"digitoVerificador\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/hola",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"hola"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "dni",
+						"value": "78445126",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "mypassword",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombres\":\"Perico\",\r\n    \"apellidos\":\"De los Palotes\",\r\n    \"email\":\"peripalo@mail.com\",\r\n    \"estado\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultaDni",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenApisNet}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.apis.net.pe/v2/reniec/dni?numero=45583035",
+					"protocol": "https",
+					"host": [
+						"api",
+						"apis",
+						"net",
+						"pe"
+					],
+					"path": [
+						"v2",
+						"reniec",
+						"dni"
+					],
+					"query": [
+						{
+							"key": "numero",
+							"value": "45583035"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						" api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usersDni",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						" api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenApisNet}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"email\":\"samavela78@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ api/v1/users?id=78445126",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						" api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "78445126"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenApisNet}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ api/v1/users?id=78445126",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						" api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "78445126"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
