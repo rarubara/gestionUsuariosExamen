@@ -1,0 +1,10 @@
+## Credenciales DB
+crear el archivo creadentials.properties con el usuario y contraseña en las siguientes lineas:	
+	db.username=myuser
+	db.password=mypassword
+
+# Titulo
+## Subtitulo
+** Negrita **
+* Bullet1
+* Bullet2
