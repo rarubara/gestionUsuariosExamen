@@ -4,6 +4,9 @@ import com.codigo.gestionUsuariosExamen.dao.UsuarioRepository;
 import com.codigo.gestionUsuariosExamen.entity.Usuario;
 import com.codigo.gestionUsuariosExamen.security.AuthenticationResponse;
 import com.codigo.gestionUsuariosExamen.security.JwtUtil;
+import com.codigo.gestionUsuariosExamen.service.JwtService;
+import com.codigo.gestionUsuariosExamen.service.UsuarioService;
+import com.codigo.gestionUsuariosExamen.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +31,17 @@ public class UsuarioController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping("/hola")
     public String hola() {
         return "Hola usuario";
+    }
+
+    @GetMapping("/holaAdmin")
+    public String holaAdmin() {
+        return "Hola admin";
     }
 
     @PostMapping("/login")
@@ -45,7 +56,10 @@ public class UsuarioController {
             );
 
             // If authentication is successful, generate the JWT token
-            String jwt = jwtUtil.generateToken(id);
+            Optional<Usuario> usuario = usuarioRepository.findByNumeroDocumento(id);
+            List<String> roles = List.of(usuario.get().getRole().getNameRole());
+
+            String jwt = jwtUtil.generateToken(id,roles);
 
             // Return the JWT token as the response
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
@@ -56,8 +70,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario){
-        return ResponseEntity.ok(usuarioRepository.save(usuario));
+    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario, @RequestHeader String password){
+        usuario.setPassword(password);
+        return ResponseEntity.ok(usuarioService.create(usuario));
     }
 
     @GetMapping("")

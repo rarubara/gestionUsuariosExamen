@@ -7,15 +7,17 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtUtil {
 
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Secret key for signing tokens
 
-    public String generateToken(String dni) {
+    public String generateToken(String dni, List<String> roles) {
         return Jwts.builder()
                 .setSubject(dni) // Set the subject to the user's dni
+                .claim("roles", roles) // Add roles to the token
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10-hour expiration
                 .signWith(key)

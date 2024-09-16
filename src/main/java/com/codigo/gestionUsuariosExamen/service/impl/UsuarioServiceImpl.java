@@ -35,19 +35,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponse create(UsuarioRequest usuarioRequest) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(usuarioRequest.getEmail());
-        Optional<Role> roleOptional = roleRepository.findByNameRole(usuarioRequest.getRole());
+    public Usuario create(Usuario usuario) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByNumeroDocumento(usuario.getNumeroDocumento());
+        Optional<Role> roleOptional = roleRepository.findByNameRole((usuario.getRole().getNameRole()));
         if (usuarioOptional.isPresent() || roleOptional.isEmpty()) {
             return null;
         }
-        Usuario usuario = new Usuario();
-        usuario.setEmail(usuarioRequest.getEmail());
-        usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioRequest.getPassword()));
+        //Usuario usuario = new Usuario();
+        //usuario.setEmail(usuario.getEmail());
+        usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
         usuario.setRole(roleOptional.get());
+        //usuario.setRole(roleOptional.get());
         usuarioRepository.save(usuario);
-        return new UsuarioResponse(usuario.getEmail(),
-                usuario.getRole().getNameRole());
+        return usuario;
     }
 
     @Override

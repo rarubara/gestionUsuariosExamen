@@ -34,10 +34,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/users/login").permitAll()
                         .requestMatchers("/api/v1/users/register").permitAll()
                         .requestMatchers("/api/v1/users/hola").permitAll()
-                        .requestMatchers("/api/v1/admin/**")
-                        .hasAnyAuthority("ADMIN")
-                        .anyRequest()
-                        .authenticated())
+                        .requestMatchers("/api/v1/users/holaAdmin").hasAnyAuthority("ADMIN")
+                        .anyRequest().authenticated())
                 .sessionManagement(manager->manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider(userDetailsService))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
