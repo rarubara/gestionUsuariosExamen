@@ -3,17 +3,18 @@ package com.codigo.gestionUsuariosExamen.controller;
 import com.codigo.gestionUsuariosExamen.dao.UsuarioRepository;
 import com.codigo.gestionUsuariosExamen.entity.Usuario;
 import com.codigo.gestionUsuariosExamen.security.AuthenticationResponse;
-import com.codigo.gestionUsuariosExamen.security.JwtUtil;
 import com.codigo.gestionUsuariosExamen.service.JwtService;
 import com.codigo.gestionUsuariosExamen.service.UsuarioService;
-import com.codigo.gestionUsuariosExamen.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,10 +30,14 @@ public class UsuarioController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtService jwtService;
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    @Qualifier("userDetailsServiceImpl")
+    private UserDetailsService userDetailsService;
 
     @GetMapping("/hola")
     public String hola() {
@@ -52,14 +57,15 @@ public class UsuarioController {
         try {
             // Authenticate the user using the dni and password
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(id, password)
-            );
+                    new UsernamePasswordAuthenticationToken(id, password));
 
             // If authentication is successful, generate the JWT token
             Optional<Usuario> usuario = usuarioRepository.findByNumeroDocumento(id);
             List<String> roles = List.of(usuario.get().getRole().getNameRole());
 
-            String jwt = jwtUtil.generateToken(id,roles);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(id);
+
+            String jwt = jwtService.generateToken(userDetails);
 
             // Return the JWT token as the response
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
@@ -81,14 +87,19 @@ public class UsuarioController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") Long id,
+    public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") String numeroDocumento,
                                                        @RequestBody  Usuario usuario){
 
-        Optional<Usuario> usuarioExistente = usuarioRepository.findById(id);
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByNumeroDocumento(numeroDocumento);
         if(usuarioExistente.isPresent()){
             Usuario datosActualizar = usuarioExistente.get();
-            datosActualizar.setId(id);
+            datosActualizar.setId(usuario.getId());
             datosActualizar.setNombres(usuario.getNombres());
+            datosActualizar.setApellidoPaterno(usuario.getApellidoPaterno());
+            datosActualizar.setApellidoMaterno(usuario.getApellidoMaterno());
+            datosActualizar.setTipoDocumento(usuario.getTipoDocumento());
+            datosActualizar.setNumeroDocumento(usuario.getNumeroDocumento());
+            datosActualizar.setDigitoVerificador(usuario.getDigitoVerificador());
             datosActualizar.setEmail(usuario.getEmail());
             return ResponseEntity.ok(usuarioRepository.save(datosActualizar));
         }else {

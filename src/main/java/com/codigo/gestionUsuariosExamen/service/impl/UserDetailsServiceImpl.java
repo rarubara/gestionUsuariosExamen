@@ -1,7 +1,7 @@
 package com.codigo.gestionUsuariosExamen.service.impl;
 
-import com.codigo.gestionUsuariosExamen.entity.Usuario;
 import com.codigo.gestionUsuariosExamen.dao.UsuarioRepository;
+import com.codigo.gestionUsuariosExamen.entity.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -32,6 +32,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Usuario usuario = usuarioOptional.get();
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(usuario.getRole().getNameRole()));
-        return new User(usuario.getEmail(), usuario.getPassword(), authorities);
+        return new User(usuario.getNumeroDocumento(), usuario.getPassword(), authorities);
     }
 }

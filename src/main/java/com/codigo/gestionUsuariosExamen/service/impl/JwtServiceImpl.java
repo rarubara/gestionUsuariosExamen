@@ -51,12 +51,17 @@ public class JwtServiceImpl implements JwtService {
         return Keys.hmacShaKeyFor(key);
     }
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(getSignKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
     private boolean isTokenExpired(String token) {
         Date date = extractClaim(token, Claims::getExpiration);
