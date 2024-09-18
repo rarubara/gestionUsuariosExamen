@@ -7,6 +7,7 @@ import com.codigo.gestionUsuariosExamen.service.JwtService;
 import com.codigo.gestionUsuariosExamen.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -86,7 +87,13 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioRepository.findAll());
     }
 
-    @PutMapping("{id}")
+    @GetMapping("/find/{id}")
+    @Cacheable(value = "usersCache", key = "#numeroDocumento")
+    public ResponseEntity<List<Usuario>> readUsuarios(@PathVariable ("id") String numeroDocumento){
+        return ResponseEntity.ok(List.of(usuarioRepository.findByNumeroDocumento(numeroDocumento).orElse(new Usuario())));
+    }
+
+    @PutMapping("/update/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") String numeroDocumento,
                                                        @RequestBody  Usuario usuario){
 
@@ -108,7 +115,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteUsuario(@PathVariable Long id) {
+    public void deleteUsuario(@PathVariable("id") Long id) {
         usuarioRepository.deleteById(id);
     }
 }
